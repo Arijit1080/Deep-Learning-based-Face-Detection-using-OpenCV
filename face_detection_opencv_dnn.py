@@ -44,6 +44,8 @@ if __name__ == "__main__" :
     c = VideoStream(src=0).start()
     time.sleep(2.0)
 
+    count_image=1  #Counts number of frames/images captured.
+
     while True:
 
         frame = c.read()
@@ -57,6 +59,11 @@ if __name__ == "__main__" :
 
         if key == ord("q"):
             break
+
+        if key % 256 == 32 :  # If spacebar is pressed.
+            i_name="OpenCV_frame{}.png".format(count_image)
+            cv2.imwrite(i_name,outOpencvDnn)
+            image_count +=1
 
     cv2.destroyAllWindows()
     c.stop()
