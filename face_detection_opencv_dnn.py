@@ -9,9 +9,9 @@ def detectFace(net, frame):
     frame_copy = frame.copy()
     frameHeight = frame_copy.shape[0]
     frameWidth = frame_copy.shape[1]
-    blob = cv2.dnn.blobFromImage(frame_copy, 1.0, (300, 300), [104, 117, 123], False, False)
+    blob = cv2.dnn.blobFromImage(frame_copy, 1.0, (300, 300), [104, 117, 123], False, False)      #Returns a blob 
 
-    net.setInput(blob)
+    net.setInput(blob)    #Sets the input to a pre-trained deep learning network and outputs the predicted probabilities for the images.
     detections = net.forward()
     bboxes = []
     for i in range(detections.shape[2]):
@@ -48,9 +48,11 @@ if __name__ == "__main__" :
 
     while True:
 
+        #Picks the frame from the threaded video stream and resizes to 500px to speedup processing.      
+ 
         frame = c.read()
         frame = imutils.resize(frame, width=450)
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)     #Converts the input frame from BGR to grayscale for face detection.
 
         outOpencvDnn, bboxes = detectFace(net,frame)
 
